@@ -1,0 +1,1 @@
+You carefully openned the door, there's nothing... You enter the room to check everything, but as soon as you make 2 steps... \nEND(3/4) - Lunch time\nDo you want to keep playing ('-2' to leave, '-1' to restart):

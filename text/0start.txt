@@ -1,0 +1,1 @@
+You are private detective, investigating a very bizarre case of people going missing. It has been 20 people, that police was not able to find, and after many of the hints you got, you reach this very creepy abandoned House.\nGo inside? ('0' for Yes, '1' for No):
