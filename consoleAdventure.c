@@ -3,98 +3,68 @@
 #include <dirent.h> // For directory management
 #include <string.h> // To compare strings
 
-#define FILES 8   // There's 7 text files
-#define SIZE 1000 // 6 letter per 300 words
+#define folder "./text" // The folder where the story is placed
 
-void fetchStory(DIR *d, char story[][SIZE]); // In C, char** is the pointer of array, there's no & reference passing
-void getScenario(char story[][SIZE], int *decision);
+void displayScenario(int *scenario);
+void getDecision(int *scenario);
 
 int main()
 {
+    // We tell the story until its finished or the user doesn't want to play anymore
+    int *scenario;
+    int decision = 0;
+    scenario = &decision;
 
-    // Try to open the directory and warn the user if something goes wrong
-    DIR *d;
-    d = opendir("./text");
-
-    if (d)
+    // While they dont want to finish playing (decision = 0), the games keeps on
+    while (!(*scenario))
     {
-        // We fetch the story text and close the dir. We need to initializate the dynamic mem
-        char story[FILES][SIZE];
+        printf("%d", *scenario);
+        printf("%c", *scenario);
+        // Prints the story from the file for the user
+        displayScenario(scenario);
 
-        fetchStory(d, story);
-        closedir(d);
-
-        // We tell the story until its finished or the user doesn't want to play anymore
-        int *decision;
-        int dec = 0;
-        decision = &dec;
-
-        while (!(*decision))
-        {
-            // Tells the scenario and makes the player choose a decision, the story advances given the decision the user made.
-            getScenario(story, decision);
-        }
-
-        // free the memory allocation and leave the game
-        printf("You left the game. Thanks for playing!");
+        // Gets the user decision and switches scenarios based on that. Also may end the game or restart.
+        getDecision(scenario);
     }
-    else
-    {
-        printf("It looks like the files needed don't exist, make sure there's a folder called 'text' inside this folder");
-    }
+
+    // Tells the user they stopped playing and app closes
+    printf("You left the game. Thanks for playing!");
 
     return 0;
 }
 
-/**
- * Fetchs the entire story text as an array of texts
- */
-void fetchStory(DIR *d, char story[][SIZE])
+void displayScenario(int *scenario)
 {
-    // Using an struct dirent and the dir name
-    struct dirent *dir;
-    char di[] = "./text/";
+    // We try to open the file for reading only
+    FILE *f;
+    const char* n = 0;
+    f = fopen(strcat(strcat(folder, n), ".txt"), "r");
+    
+    if (f){
+        char c;
 
-    // Gets the text of each file of the dir
-    int cont = 0;
-    while ((dir = readdir(d)) != NULL && cont < FILES)
+        // We display the text
+        do {
+            c = fgetc(f);
+            printf("%c", c);
+        } while (c != EOF);
+    }
+    else // If it couldn't be opened we display a message to the user
     {
-        // Uses the file if its not the parent or actual directory
-        if (strcmp(dir->d_name, ".") && strcmp(dir->d_name, ".."))
-        {
-            // Opens the file and saves the content
-            FILE *f = fopen(strcat(di, dir->d_name), "r");
-            
-            for (size_t i = 0; i < SIZE; i++)
-            {
-                // intentar cambiar para que scanee hasta que pueda
-                fscanf(f, "%s", story[cont]);
-                printf("%s", story[cont][i]);
-            }
-            
-            
-
-            // Close the files and go next
-            fclose(f);
-            cont++;
-        }
+        printf("OUPS, it looks like the story files are not where they should...\n Make sure you have a \"text\" folder in the app directory.\n If you deleted anything, pls redownload text folder.");
     }
 }
 
 /**
  * Shows a the texts based on the decision made and makes the user choose a decision that will lead to the next sceneario
  */
-void getScenario(char story[][SIZE], int *scenario)
+void getDecision(int *scenario)
 {
-    // Shows the story text and requires a decision
+    // Retrives the decision made by the player, if its an ending, it just continues to restart or not
     int decision;
-    for (int i = 0; i < SIZE; i++)
-    {
-        printf("\n%s", story[*scenario][i]);
-    }
-    scanf("%d", &decision); // if its 1 goes next (can be final), else goes no next situation
+    scanf("%d", &decision);
 
-    // Depending on the value, it can go to next scene or other
+    // Depending on the actual scenario and the decision both condition the next scenario
     switch (*scenario)
     {
         // For cases, only the exceptions, else the story advances with the decision naturally on default
