@@ -1,1 +1,10 @@
-You decide to go upstairs, so you start silently stepping the wooden staircase until you reach the first floor. There's something on your body telling you that something is off... Then, you heard a scream of help "HELP, HE'S GOING TO COOM SOON, HELP ME!", in the room next to you! It sounds just like the record of that one boy that was missing! It's him! You can take him out before the kidnapper comes back. Go inside? ('0' to Leave, '1' to go inside carefully):
+    ##### SCENARIO #####
+You decide to go upstairs, so you start silently stepping the wooden staircase
+until you reach the first floor. There's something on your body telling you that
+something is off... Then, you heard a scream of help "HELP, HE'S GOING TO COOM
+SOON, HELP ME!", in the room next to you! It sounds just like the record of that
+one boy that was missing! It's him! You can take him out before the kidnapper
+comes back.
+
+    ----- ENDING -----
+Go inside? ('0' to Leave, '1' to go inside carefully):

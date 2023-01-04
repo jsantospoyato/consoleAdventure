@@ -1,9 +1,5 @@
 #include <stdio.h>  // For user input and output
-#include <stdlib.h> // For malloc use
-#include <dirent.h> // For directory management
 #include <string.h> // To compare strings
-
-#define folder "./text" // The folder where the story is placed
 
 void displayScenario(int *scenario);
 void getDecision(int *scenario);
@@ -12,14 +8,12 @@ int main()
 {
     // We tell the story until its finished or the user doesn't want to play anymore
     int *scenario;
-    int decision = 0;
+    int decision = 1;
     scenario = &decision;
 
     // While they dont want to finish playing (decision = 0), the games keeps on
-    while (!(*scenario))
+    while (*scenario)
     {
-        printf("%d", *scenario);
-        printf("%c", *scenario);
         // Prints the story from the file for the user
         displayScenario(scenario);
 
@@ -28,35 +22,49 @@ int main()
     }
 
     // Tells the user they stopped playing and app closes
-    printf("You left the game. Thanks for playing!");
+    printf("\nYou left the game. Thanks for playing!");
 
     return 0;
 }
 
+/**
+ * Displays the text explaining the scenario and the decision to be made.
+*/
 void displayScenario(int *scenario)
 {
-    // We try to open the file for reading only
+    // We get the correct text file
     FILE *f;
-    const char* n = 0;
-    f = fopen(strcat(strcat(folder, n), ".txt"), "r");
-    
-    if (f){
+    int textFile = (*scenario) - 1;
+    char n = textFile + '0';
+    char fileName[] = "./text/";
+
+    // We try to open in read only
+    strcat(fileName, &n);
+    strcat(fileName, ".txt\0");
+    f = fopen(fileName, "r");
+    printf("Filename: %s", fileName);
+
+    if (f)
+    {
         char c;
 
         // We display the text
-        do {
+        printf("\n");
+        do
+        {
             c = fgetc(f);
             printf("%c", c);
         } while (c != EOF);
     }
     else // If it couldn't be opened we display a message to the user
     {
-        printf("OUPS, it looks like the story files are not where they should...\n Make sure you have a \"text\" folder in the app directory.\n If you deleted anything, pls redownload text folder.");
+        printf("\n\n !!!!! ERROR !!!!! ");
+        printf("\nOUPS, it looks like the story files are not where they should...\n Make sure you have a \"text\" folder in the app directory.\n If you deleted anything, pls redownload text folder.\n\nType -1 to leave or 0 to restart:");
     }
 }
 
 /**
- * Shows a the texts based on the decision made and makes the user choose a decision that will lead to the next sceneario
+ * Captures the players decision and changes scenarios based on both the current scenario and the decision
  */
 void getDecision(int *scenario)
 {
