@@ -1,1 +1,7 @@
-You decided to just leave, there's just something off about that place, and you felt it. You lost all that time investigating and the 3000€ offered as prize...\nEND(2/4) - Coward, but not missing nor dead!\nDo you want to keep playing ('-2' to leave, '-1' to restart):
+    ##### SCENARIO #####
+You decided to just leave, there's just something off about that place, and you
+felt it. You lost all that time investigating and the 3000€ offered as prize...
+
+    ----- ENDING -----
+END(2/4) - Coward, but not missing nor dead!
+Do you want to keep playing ('-1' to leave, '0' to restart):
