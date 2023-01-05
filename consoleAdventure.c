@@ -1,24 +1,22 @@
 #include <stdio.h>  // For user input and output
 #include <string.h> // To compare strings
 
-void displayScenario(int *scenario);
-void getDecision(int *scenario);
+void displayScenario(int scenario);
+int getDecision(int scenario);
 
 int main()
 {
     // We tell the story until its finished or the user doesn't want to play anymore
-    int *scenario;
-    int decision = 1;
-    scenario = &decision;
+    int scenario = 0;
 
     // While they dont want to finish playing (decision = 0), the games keeps on
-    while (*scenario)
+    while (scenario >= 0)
     {
         // Prints the story from the file for the user
         displayScenario(scenario);
 
         // Gets the user decision and switches scenarios based on that. Also may end the game or restart.
-        getDecision(scenario);
+        scenario = getDecision(scenario);
     }
 
     // Tells the user they stopped playing and app closes
@@ -30,19 +28,20 @@ int main()
 /**
  * Displays the text explaining the scenario and the decision to be made.
 */
-void displayScenario(int *scenario)
+void displayScenario(int scenario)
 {
     // We get the correct text file
     FILE *f;
-    int textFile = (*scenario) - 1;
-    char n = textFile + '0';
-    char fileName[] = "./text/";
+
+    char n[] = {scenario+'0', '\0'};
+    char fileName[14] = "./text/";
+    char extension[] = ".txt\0";
 
     // We try to open in read only
-    strcat(fileName, &n);
-    strcat(fileName, ".txt\0");
+    strcat(fileName, n);
+    strcat(fileName, extension);
     f = fopen(fileName, "r");
-    printf("Filename: %s", fileName);
+    printf("Filename: %s\n", fileName);
 
     if (f)
     {
@@ -55,6 +54,8 @@ void displayScenario(int *scenario)
             c = fgetc(f);
             printf("%c", c);
         } while (c != EOF);
+
+        fclose(f);
     }
     else // If it couldn't be opened we display a message to the user
     {
@@ -66,14 +67,14 @@ void displayScenario(int *scenario)
 /**
  * Captures the players decision and changes scenarios based on both the current scenario and the decision
  */
-void getDecision(int *scenario)
+int getDecision(int scenario)
 {
     // Retrives the decision made by the player, if its an ending, it just continues to restart or not
     int decision;
     scanf("%d", &decision);
 
     // Depending on the actual scenario and the decision both condition the next scenario
-    switch (*scenario)
+    switch (scenario)
     {
         // For cases, only the exceptions, else the story advances with the decision naturally on default
     case 1:
@@ -87,5 +88,5 @@ void getDecision(int *scenario)
         break;
     }
 
-    *scenario = decision;
+    return scenario + decision;
 }
