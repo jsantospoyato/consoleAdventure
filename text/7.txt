@@ -13,4 +13,4 @@ When you tell your mates in such a self-believing way, they decide to send you
 to a psychiatrist. You are not crazy, you saw it... Maybe...
 
 END(4/4) - Trust your guts!
-Do you want to keep playing ('-1' to leave, '0' to restart):
+Do you want to keep playing ('0' to leave, '1' to restart from the beginning):
