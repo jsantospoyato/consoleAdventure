@@ -4,4 +4,4 @@ everything, but as soon as you make 2 steps...
 
     ----- ENDING -----
 END(3/4) - Lunch time
-Do you want to keep playing ('-1' to leave, '0' to restart):
+Do you want to keep playing ('0' to leave, '1' to restart from the beginning):
