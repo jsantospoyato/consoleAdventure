@@ -4,4 +4,4 @@ It has been 20 people, that police was not able to find, and after many of the h
 you got, you reach this very creepy abandoned House.
     
     ----- DECISION ------ 
-Go inside? ('0' for Yes, '1' for No):
+Go inside? ('0' for No, '1' for Yes):
